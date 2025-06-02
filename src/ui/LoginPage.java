@@ -1,3 +1,10 @@
+package ui;
+
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+import object.FontSetting;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -13,6 +20,7 @@ public class LoginPage extends javax.swing.JFrame {
      * Creates new form LoginPage
      */
     public LoginPage() {
+        applyFont();
         initComponents();
     }
 
@@ -28,8 +36,8 @@ public class LoginPage extends javax.swing.JFrame {
         lblChooseLanguage = new javax.swing.JLabel();
         cmbChooseLanguage = new javax.swing.JComboBox<>();
         lblPassword = new javax.swing.JLabel();
-        lblUsername1 = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
+        lblUsername = new javax.swing.JLabel();
+        txtussername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         lblForgot = new javax.swing.JLabel();
@@ -48,12 +56,12 @@ public class LoginPage extends javax.swing.JFrame {
         lblPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblPassword.setText("Password");
 
-        lblUsername1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblUsername1.setText("Username");
+        lblUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblUsername.setText("Username");
 
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+        txtussername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
+                txtussernameActionPerformed(evt);
             }
         });
 
@@ -82,9 +90,9 @@ public class LoginPage extends javax.swing.JFrame {
                         .addComponent(lblForgot)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblUsername1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtussername, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -100,8 +108,8 @@ public class LoginPage extends javax.swing.JFrame {
                     .addComponent(lblChooseLanguage))
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsername1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtussername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -117,12 +125,68 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbChooseLanguageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbChooseLanguageActionPerformed
-        // TODO add your handling code here:
+applyLanguage();        // TODO add your handling code here:
     }//GEN-LAST:event_cmbChooseLanguageActionPerformed
 
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+    private void txtussernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtussernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameActionPerformed
+    }//GEN-LAST:event_txtussernameActionPerformed
+    private void applyFont() {
+        try {
+            FontSetting fs = new FontSetting("Code2000", 1, 14);
+            fs.selectContainer(getContentPane());
+        } catch (Exception e) {
+            System.err.println("" + e.getMessage());
+        }
+    }
+
+    private void applyLanguage() {
+        String language;
+        String country;
+        Locale locale;
+        int lang = cmbChooseLanguage.getSelectedIndex();
+        try {
+            switch (lang) {
+                case 0:
+                    language = "en";
+                    country = "US";
+                    break;
+                case 1:
+                    language = "in";
+                    country = "ID";
+                    break;
+                case 2:
+                    language = "ko";
+                    country = "KR";
+                    break;
+                case 3:
+                    language = "ja";
+                    country = "JP";
+                    break;
+                default:
+                    language = "en";
+                    country = "US";
+                    break;
+            }
+
+            locale = new Locale(language, country);
+            ResourceBundle rb
+                    = ResourceBundle.getBundle("localization/Bundle", locale);
+            lblChooseLanguage.setText(rb.getString("LoginPage.lblChooseLanguage.text"));
+            lblUsername.setText(rb.getString("LoginPage.lblUsername.text"));
+            lblPassword.setText(rb.getString("LoginPage.lblPassword.text"));
+            btnLogin.setText(rb.getString("LoginPage.btnLogin.text"));
+            lblForgot.setText(rb.getString("LoginPage.lblForgot.text"));
+            int cmbLN = cmbChooseLanguage.getItemCount();
+            cmbChooseLanguage.removeAllItems();
+            for (int i = 0; i < cmbLN; i++) {
+                cmbChooseLanguage.addItem(rb.getString("cmbChooseLanguage." + i));
+            }
+            cmbChooseLanguage.setSelectedIndex(lang);
+            setTitle(rb.getString("LoginPage.title"));
+        } catch (Exception e) {
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -159,71 +223,15 @@ public class LoginPage extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JComboBox<String> cmbChooseLanguage;
     private javax.swing.JLabel lblChooseLanguage;
     private javax.swing.JLabel lblForgot;
     private javax.swing.JLabel lblPassword;
-    private javax.swing.JLabel lblUsername1;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtUsername;
+    private javax.swing.JTextField txtussername;
     // End of variables declaration//GEN-END:variables
 }
-private void applyFont() {
- try {
- FontSetting fs = new FontSetting("Code2000", 1, 14);
- fs.selectContainer(getContentPane());
- } catch (Exception e) {
- System.err.println("" + e.getMessage());
- }
- }
- private void applyLanguage() {
- String language;
- String country;
- Locale locale;
- int lang = cmbChooseLanguage.getSelectedIndex();
- try {
- switch(lang){
- case 0:
- language = "en";
-country = "US";
-break;
- case 1:
- language = "in";
-country = "ID";
- break;
- case 2:
- language = "ko";
-country = "KR";
-break;
- case 3:
- language = "ja";
-country = "JP";
-break;
- default:
- language = "en";
-country = "US";
-break;
- }
-
- locale = new Locale(language, country);
- ResourceBundle rb =
-ResourceBundle.getBundle("localization/Bundle", locale);
-
-lblChooseLanguage.setText(rb.getString("LoginPage.lblChooseLanguage.text"));
- lblUsername.setText(rb.getString("LoginPage.lblUsername.text"));
- lblPassword.setText(rb.getString("LoginPage.lblPassword.text"));
- btnLogin.setText(rb.getString("LoginPage.btnLogin.text"));
- lblForgot.setText(rb.getString("LoginPage.lblForgot.text"));
- int cmbLN = cmbChooseLanguage.getItemCount();
- cmbChooseLanguage.removeAllItems();
- for (int i = 0; i < cmbLN; i++) {
- cmbChooseLanguage.addItem(rb.getString("cmbChooseLanguage."+i));
- }
- cmbChooseLanguage.setSelectedIndex(lang);
- setTitle(rb.getString("LoginPage.title"));
- } catch (Exception e) {
- }
- }
-
